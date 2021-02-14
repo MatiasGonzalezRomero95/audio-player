@@ -30,6 +30,7 @@ const usePlayer = ({
     player.tune();
 
     // Used to show the progress and the status bar
+    // NOTE: this need to be called when the component is already mounted
     new Feed.PlayerView('player-view-div', player);
 
     setPlayer(player);
