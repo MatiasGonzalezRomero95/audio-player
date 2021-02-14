@@ -35,7 +35,7 @@ const Player = () => {
 
   const onPlayStarted = useCallback(
     (event) => {
-      console.log('onPlayStarted', event);
+      console.log('[Player] onPlayStarted', event);
 
       setIsPlaying(true);
       setIsPaused(false);
@@ -48,17 +48,18 @@ const Player = () => {
 
   const onPlayPaused = useCallback(
     (event) => {
+      console.log('[Player] onPlayPaused', event);
+
       setIsPlaying(false);
       setIsPaused(true);
       setIsStopped(false);
-      console.log('onPlayPaused', event);
     },
     [setIsPlaying]
   );
 
   const onPlayStopped = useCallback(
     (event) => {
-      console.log('onPlayStopped', event);
+      console.log('[Player] onPlayStopped', event);
 
       setIsPlaying(false);
       setIsPaused(false);
@@ -71,7 +72,7 @@ const Player = () => {
 
   const onPlayCompleted = useCallback(
     (event) => {
-      console.log('onPlayCompleted', event);
+      console.log('[Player] onPlayCompleted', event);
 
       setIsPlaying(false);
       setIsPaused(false);
@@ -87,12 +88,12 @@ const Player = () => {
       setIsPlaying(true);
       setIsPaused(false);
       setIsStopped(false);
-      console.log('onPlayResumed', event);
+      console.log('[Player] onPlayResumed', event);
     },
     [setIsPlaying]
   );
 
-  const { play, pause, stop, increaseVolume, volume } = usePlayer({
+  const { play, pause, stop, increaseVolume, initialVolume } = usePlayer({
     onPlayStarted,
     onPlayPaused,
     onPlayCompleted,
@@ -116,17 +117,15 @@ const Player = () => {
         />
         <PlayerControl
           isPlaying={isPlaying}
-          volume={volume}
+          initialVolume={initialVolume}
           onPauseClick={pause}
           onStopClick={stop}
           onPlayClick={play}
-          increaseVolume={increaseVolume}
+          onChangeVolume={increaseVolume}
         />
       </Box>
     </Grid>
   );
 };
-
-Player.propTypes = {};
 
 export default Player;

@@ -12,12 +12,12 @@ const usePlayer = ({
 
   useEffect(() => {
     const player = new Feed.Player('demo', 'demo');
-    player.setVolume(50);
+    player.setVolume(10);
 
-    // Display all the events the player triggers
+    // display all the events the player triggers, DEBUG
     player.on('all', function (event) {
       console.log(
-        "player triggered event '" + event + "' with arguments:",
+        "[Player] Triggered event '" + event + "' with arguments:",
         Array.prototype.splice.call(arguments, 1)
       );
     });
@@ -29,10 +29,12 @@ const usePlayer = ({
     player.on('play-resumed', onPlayResumed);
     player.tune();
 
+    // Used to show the progress and the status bar
     new Feed.PlayerView('player-view-div', player);
 
     setPlayer(player);
 
+    // on unmount, turn off the events capture
     return () => {
       player.off('play-started');
       player.off('play-paused');
@@ -48,12 +50,13 @@ const usePlayer = ({
     onPlayResumed,
   ]);
 
+  // expose only the control functions, and not the internal implementation and abstract components from the internal implementation
   return {
     stop: () => player.stop(),
     pause: () => player.pause(),
     play: () => player.play(),
     increaseVolume: (newValue) => player.setVolume(newValue),
-    getVol: () => player.getVolume(),
+    initialVolume: player?.getVolume(),
   };
 };
 export default usePlayer;

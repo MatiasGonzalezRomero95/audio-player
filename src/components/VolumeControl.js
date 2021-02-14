@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Slider from '@material-ui/core/Slider';
@@ -11,11 +13,17 @@ const useStyles = makeStyles({
   },
 });
 
-const VolumeControl = ({ increaseVolume, volume }) => {
+const VolumeControl = ({ onChangeVolume, initialVolume }) => {
+  const [volume, setVolume] = useState(initialVolume);
   const classes = useStyles();
 
+  useEffect(() => {
+    setVolume(initialVolume);
+  }, [initialVolume, setVolume]);
+
   const handleChange = (event, newValue) => {
-    increaseVolume(newValue);
+    setVolume(newValue);
+    onChangeVolume(newValue);
   };
 
   return (
@@ -39,6 +47,13 @@ const VolumeControl = ({ increaseVolume, volume }) => {
   );
 };
 
-VolumeControl.propTypes = {};
+VolumeControl.propTypes = {
+  onChangeVolume: PropTypes.func.isRequired,
+  initialVolume: PropTypes.number,
+};
+
+VolumeControl.defaultProps = {
+  initialVolume: 0,
+};
 
 export default VolumeControl;

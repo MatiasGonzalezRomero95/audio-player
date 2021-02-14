@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     display: 'flex',
-    backgroundColor: theme.palette.secondary.background
+    backgroundColor: theme.palette.secondary.background,
   },
 }));
 
@@ -28,6 +28,12 @@ const Cover = ({ currentMusic }) => {
   return <Image src={currentMusic.imageUrl} alt="Example Alt" />;
 };
 
-Cover.propTypes = {};
+Cover.propTypes = {
+  currentMusic: PropTypes.object,
+};
+
+Cover.defaultProps = {
+  currentMusic: {},
+};
 
 export default Cover;
