@@ -32,16 +32,18 @@ const Player = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [isStopped, setIsStopped] = useState(true);
   const [currentMusic, setCurrentMusic] = useState({});
+  const [playedMusics, setPlayedMusics] = useState(new Set());
 
   const onPlayStarted = useCallback(
     (event) => {
       console.log('[Player] onPlayStarted', event);
 
+      const newMusic = event.audio_file.track.id;
+      setPlayedMusics((musics) => musics.add(newMusic));
+
       setIsPlaying(true);
       setIsPaused(false);
       setIsStopped(false);
-
-      setCurrentMusic(normalizeEventToMusic(event));
     },
     [setIsPlaying, setCurrentMusic]
   );
@@ -85,10 +87,11 @@ const Player = () => {
 
   const onPlayResumed = useCallback(
     (event) => {
+      console.log('[Player] onPlayResumed', event);
+
       setIsPlaying(true);
       setIsPaused(false);
       setIsStopped(false);
-      console.log('[Player] onPlayResumed', event);
     },
     [setIsPlaying]
   );
@@ -104,6 +107,7 @@ const Player = () => {
   return (
     <Grid data-testid="player" id="player-view-div" className={classes.player}>
       <Box>
+        <div>Music counter: {playedMusics.size}</div>
         <Cover currentMusic={currentMusic} />
         <StatusBar
           isPlaying={isPlaying}
