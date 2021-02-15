@@ -71,7 +71,10 @@ const PlayerControl = ({
       </IconButton>
 
       <Grid container justify="center">
-        <VolumeControl initialVolume={initialVolume} onChangeVolume={onChangeVolume} />
+        <VolumeControl
+          initialVolume={initialVolume}
+          onChangeVolume={onChangeVolume}
+        />
       </Grid>
     </div>
   );
@@ -81,8 +84,8 @@ PlayerControl.propTypes = {
   isPlaying: PropTypes.bool.isRequired,
   onPlayClick: PropTypes.func.isRequired,
   onStopClick: PropTypes.func.isRequired,
-  onChangeVolume: PropTypes.func.isRequired,
   onPauseClick: PropTypes.func.isRequired,
+  onChangeVolume: PropTypes.func,
 };
 
 export default PlayerControl;

@@ -48,7 +48,7 @@ const VolumeControl = ({ onChangeVolume, initialVolume }) => {
 };
 
 VolumeControl.propTypes = {
-  onChangeVolume: PropTypes.func.isRequired,
+  onChangeVolume: PropTypes.func,
   initialVolume: PropTypes.number,
 };
 
