@@ -44,6 +44,8 @@ const Player = () => {
       setIsPlaying(true);
       setIsPaused(false);
       setIsStopped(false);
+    
+      setCurrentMusic(normalizeEventToMusic(event));
     },
     [setIsPlaying, setCurrentMusic]
   );
